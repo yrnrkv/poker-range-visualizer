@@ -1,3 +1,5 @@
+'use client';
+
 import RangeGrid from '@/components/RangeGrid';
 import RangeStats from '@/components/RangeStats';
 import RangeControls from '@/components/RangeControls';
