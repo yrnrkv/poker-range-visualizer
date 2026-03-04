@@ -3,10 +3,11 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(
   _request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const range = await prisma.range.findUnique({ where: { id: params.id } });
+    const { id } = await params;
+    const range = await prisma.range.findUnique({ where: { id } });
     if (!range) {
       return NextResponse.json({ error: 'Range not found' }, { status: 404 });
     }
@@ -24,10 +25,11 @@ export async function GET(
 
 export async function DELETE(
   _request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await prisma.range.delete({ where: { id: params.id } });
+    const { id } = await params;
+    await prisma.range.delete({ where: { id } });
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Failed to delete range:', error);
