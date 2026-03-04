@@ -16,7 +16,8 @@ export async function GET(
       createdAt: range.createdAt.toISOString(),
       updatedAt: range.updatedAt.toISOString(),
     });
-  } catch {
+  } catch (error) {
+    console.error('Failed to fetch range:', error);
     return NextResponse.json({ error: 'Failed to fetch range' }, { status: 500 });
   }
 }
@@ -28,7 +29,8 @@ export async function DELETE(
   try {
     await prisma.range.delete({ where: { id: params.id } });
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (error) {
+    console.error('Failed to delete range:', error);
     return NextResponse.json({ error: 'Failed to delete range' }, { status: 500 });
   }
 }

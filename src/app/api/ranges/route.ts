@@ -13,7 +13,8 @@ export async function GET() {
       updatedAt: r.updatedAt.toISOString(),
     }));
     return NextResponse.json(result);
-  } catch {
+  } catch (error) {
+    console.error('Failed to fetch ranges:', error);
     return NextResponse.json({ error: 'Failed to fetch ranges' }, { status: 500 });
   }
 }
@@ -38,7 +39,8 @@ export async function POST(request: NextRequest) {
       createdAt: range.createdAt.toISOString(),
       updatedAt: range.updatedAt.toISOString(),
     }, { status: 201 });
-  } catch {
+  } catch (error) {
+    console.error('Failed to save range:', error);
     return NextResponse.json({ error: 'Failed to save range' }, { status: 500 });
   }
 }

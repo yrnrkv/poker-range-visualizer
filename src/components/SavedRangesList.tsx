@@ -11,7 +11,7 @@ export default function SavedRangesList() {
     fetch('/api/ranges')
       .then((r) => r.json())
       .then((data: SavedRange[]) => setSavedRanges(data))
-      .catch(() => addToast('Failed to load saved ranges', 'error'));
+      .catch((error) => { console.error('Failed to load saved ranges:', error); addToast('Failed to load saved ranges', 'error'); });
   }, [setSavedRanges, addToast]);
 
   const handleLoad = (range: SavedRange) => {
@@ -25,7 +25,8 @@ export default function SavedRangesList() {
       if (!res.ok) throw new Error('Failed to delete');
       removeSavedRange(range.id);
       addToast(`Deleted range "${range.name}"`, 'success');
-    } catch {
+    } catch (error) {
+      console.error('Failed to delete range:', error);
       addToast('Failed to delete range', 'error');
     }
   };

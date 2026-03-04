@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import { SavedRange, ToastMessage } from '@/types';
-import { v4 as uuidv4 } from 'uuid';
 import { ALL_HANDS } from './poker';
 
 interface RangeStore {
@@ -75,7 +74,7 @@ export const useRangeStore = create<RangeStore>((set) => ({
     set((state) => ({
       toasts: [
         ...state.toasts,
-        { id: uuidv4(), message, type },
+        { id: crypto.randomUUID(), message, type },
       ],
     })),
 

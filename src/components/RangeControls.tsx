@@ -35,7 +35,8 @@ export default function RangeControls() {
       setSaveName('');
       setSavePosition('');
       addToast(`Range "${saved.name}" saved successfully!`, 'success');
-    } catch {
+    } catch (error) {
+      console.error('Failed to save range:', error);
       addToast('Failed to save range', 'error');
     } finally {
       setIsSaving(false);

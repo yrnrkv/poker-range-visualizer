@@ -13,7 +13,8 @@ export default function ImportExport() {
     try {
       await navigator.clipboard.writeText(handStr);
       addToast('Range copied to clipboard!', 'success');
-    } catch {
+    } catch (error) {
+      console.error('Failed to copy to clipboard:', error);
       addToast('Failed to copy to clipboard', 'error');
     }
   };

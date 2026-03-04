@@ -13,7 +13,7 @@ export default function ComparePage() {
       fetch('/api/ranges')
         .then((r) => r.json())
         .then((data: SavedRange[]) => setSavedRanges(data))
-        .catch(() => addToast('Failed to load saved ranges', 'error'));
+        .catch((error) => { console.error('Failed to load saved ranges:', error); addToast('Failed to load saved ranges', 'error'); });
     }
   }, [savedRanges.length, setSavedRanges, addToast]);
 
