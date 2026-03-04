@@ -11,8 +11,15 @@ export default function ComparePage() {
   useEffect(() => {
     if (savedRanges.length === 0) {
       fetch('/api/ranges')
-        .then((r) => r.json())
-        .then((data: SavedRange[]) => setSavedRanges(data))
+        .then((r) => {
+          if (!r.ok) throw new Error('Failed to fetch');
+          return r.json();
+        })
+        .then((data: SavedRange[]) => {
+          if (Array.isArray(data)) {
+            setSavedRanges(data);
+          }
+        })
         .catch((error) => { console.error('Failed to load saved ranges:', error); addToast('Failed to load saved ranges', 'error'); });
     }
   }, [savedRanges.length, setSavedRanges, addToast]);
